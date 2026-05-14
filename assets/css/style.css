@@ -1,0 +1,276 @@
+/* ============================================================
+   QUIZINI — style.css
+   Neon green arcade theme. One file, no inline overrides.
+   ============================================================ */
+
+/* ── Variables ─────────────────────────────────────────────── */
+:root {
+  --bg:            #012a01;
+  --bg-deep:       #001800;
+  --neon-green:    #39ff6a;
+  --neon-cyan:     #00e5ff;
+  --neon-white:    #d4ffd4;
+  --card-bg:       #012a01;
+  --border-radius: 14px;
+  --font-mono:     'Courier New', Courier, monospace;
+  --glow-green:    0 0 8px #39ff6a, 0 0 18px #39ff6a55;
+  --glow-cyan:     0 0 8px #00e5ff, 0 0 18px #00e5ff55;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--neon-white);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ── Nav / Header (hidden on welcome, login, register) ──────── */
+nav {
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--neon-green);
+  box-shadow: 0 2px 12px #39ff6a33;
+  padding: 0.75rem 2rem;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.nav-username {
+  color: var(--neon-green);
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-shadow: var(--glow-green);
+  margin-right: auto;
+}
+
+nav a {
+  color: var(--neon-green);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--neon-green);
+  border-radius: 6px;
+  transition: background 0.18s, box-shadow 0.18s, color 0.18s;
+}
+
+nav a:hover {
+  background-color: var(--neon-green);
+  color: var(--bg-deep);
+  box-shadow: var(--glow-green);
+}
+
+/* ── Welcome Page ───────────────────────────────────────────── */
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1.6rem;
+  padding: 2rem;
+  background-color: var(--bg-deep);
+  /* subtle scanline texture */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 255, 80, 0.025) 3px,
+    rgba(0, 255, 80, 0.025) 4px
+  );
+}
+
+/* QUIZINI title */
+.welcome-page h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  color: var(--neon-green);
+  text-shadow: var(--glow-green);
+  border: 3px solid var(--neon-white);
+  border-radius: var(--border-radius);
+  padding: 0.45em 1.1em;
+  background-color: var(--bg);
+  box-shadow: 0 0 20px #39ff6a22;
+}
+
+/* Tagline */
+.welcome-page p {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 2vw, 0.92rem);
+  letter-spacing: 0.12em;
+  color: var(--neon-green);
+  opacity: 0.85;
+}
+
+/* Button row */
+.welcome-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  padding: 0.75em 2.4em;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+  background-color: var(--bg);
+}
+
+.btn-primary {
+  color: var(--neon-green);
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 6px #39ff6a55;
+}
+
+.btn-primary:hover {
+  background-color: var(--neon-green);
+  color: var(--bg-deep);
+  box-shadow: var(--glow-green);
+}
+
+.btn-secondary {
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 6px #00e5ff44;
+}
+
+.btn-secondary:hover {
+  background-color: var(--neon-cyan);
+  color: var(--bg-deep);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ── Auth Pages (login & register) ─────────────────────────── */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--bg-deep);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 255, 80, 0.025) 3px,
+    rgba(0, 255, 80, 0.025) 4px
+  );
+}
+
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 420px;
+  background-color: #000;
+  border: 2px solid var(--neon-white);
+  border-radius: 22px;
+  padding: 2.8rem 2.4rem;
+  box-shadow: 0 0 30px #00000088;
+}
+
+.auth-title {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--neon-white);
+  margin-bottom: 0.4rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.auth-input {
+  width: 100%;
+  background-color: #d8d8d8;
+  color: #111;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 1em;
+  outline: none;
+  transition: box-shadow 0.18s;
+}
+
+.auth-input::placeholder {
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.auth-input:focus {
+  box-shadow: 0 0 0 2px var(--neon-cyan);
+}
+
+.auth-submit {
+  width: 100%;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  padding: 0.85em 1em;
+  margin-top: 0.6rem;
+  border: 2px solid;
+}
+
+.auth-error {
+  color: #ff4444;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.auth-footer-text {
+  font-size: 0.8rem;
+  color: var(--neon-white);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.auth-link {
+  color: var(--neon-green);
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.auth-link:hover {
+  color: var(--neon-cyan);
+}

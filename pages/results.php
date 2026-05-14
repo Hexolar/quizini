@@ -1,6 +1,6 @@
-<?php require __DIR__ . '/../includes/header.php'; ?>
-
 <?php
+require __DIR__ . '/../includes/header.php';
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: index.php?page=home");
     exit;
@@ -20,7 +20,7 @@ while ($q = mysqli_fetch_assoc($questions)) {
         $selected = (int)$_POST["q$qid"];
         $check = mysqli_query($conn, "SELECT is_correct FROM answers WHERE id = $selected");
         if ($row = mysqli_fetch_assoc($check)) {
-            if ($row['is_correct'] == 1) $score++;
+            if ($row['is_correct']) $score++;
         }
     }
 }
@@ -31,15 +31,11 @@ $stmt->bind_param("iiii", $user_id, $quiz_id, $score, $total);
 $stmt->execute();
 ?>
 
-<div class="section" style="background:#2c1e16; text-align:center;">
-    <h1 style="font-size:3.5rem; color:var(--neon-cyan);">QUIZ COMPLETE</h1>
-    <h2>Your Score: <strong style="color:#22c55e;"><?= $score ?>/<?= $total ?></strong></h2>
+<div>
+    <h1>QUIZ COMPLETE</h1>
+    <h2>Your Score: <strong><?= $score ?>/<?= $total ?></strong></h2>
     
-    <a href="index.php?page=home" class="btn btn-primary" style="margin-top:40px; font-size:1.3rem;">
-        Back to Home
-    </a>
+    <a href="index.php?page=home">Back to Home</a>
 </div>
 
-<?php 
-require __DIR__ . '/../includes/footer.php';
-?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

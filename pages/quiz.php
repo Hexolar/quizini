@@ -24,19 +24,19 @@ while ($q = mysqli_fetch_assoc($questions_query)) {
 }
 ?>
 
-<div class="progress-container">
-    <div id="progress" class="progress-bar"></div>
+<div>
+    <div id="progress"></div>
 </div>
 
-<div class="section" style="background:#2c1e16;">
-    <div style="max-width:800px; width:100%;">
-        <h1 style="margin-bottom:2rem; color:var(--neon-green);"><?= htmlspecialchars($quiz['title']) ?></h1>
+<div>
+    <div>
+        <h1><?= htmlspecialchars($quiz['title']) ?></h1>
         
         <form action="index.php?page=results" method="POST">
             <input type="hidden" name="quiz_id" value="<?= $quiz_id ?>">
 
             <?php foreach ($questions as $index => $q): ?>
-            <div class="question">
+            <div>
                 <h3><?= ($index + 1) . ". " . htmlspecialchars($q['question_text']) ?></h3>
                 <?php foreach ($q['answers'] as $ans): ?>
                     <label>
@@ -47,7 +47,7 @@ while ($q = mysqli_fetch_assoc($questions_query)) {
             </div>
             <?php endforeach; ?>
 
-            <button type="submit" class="btn btn-primary" style="font-size:1.3rem; padding:18px 50px; margin-top:30px;">
+            <button type="submit">
                 Finish Quiz
             </button>
         </form>

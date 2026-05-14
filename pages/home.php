@@ -1,30 +1,45 @@
-<?php require __DIR__ . '/../includes/header.php'; ?>
+<?php 
+require __DIR__ . '/../includes/header.php'; 
+$user_id = $_SESSION['user_id'];
+?>
 
-<!-- Hero -->
-<div class="home-hero">
+<div>
     <h1>QUIZINI</h1>
-    <p class="scroll-prompt">SCROLL DOWN TO VIEW QUIZZES</p>
+    <p>SCROLL DOWN TO VIEW QUIZZES</p>
 </div>
 
-<!-- Quiz Sections -->
 <?php
 $quizzes = mysqli_query($conn, "SELECT * FROM quizzes");
+
 while ($quiz = mysqli_fetch_assoc($quizzes)):
-    $result = mysqli_query($conn, "SELECT score, total FROM user_results WHERE user_id = {$_SESSION['user_id']} AND quiz_id = {$quiz['id']} ORDER BY completed_at DESC LIMIT 1");
-    $best = mysqli_fetch_assoc($result);
+    
+    // Get the BEST score for this user and quiz
+    $best_result = mysqli_query($conn, "
+        SELECT score, total 
+        FROM user_results 
+        WHERE user_id = $user_id 
+          AND quiz_id = {$quiz['id']} 
+        ORDER BY score DESC 
+        LIMIT 1
+    ");
+    $best = mysqli_fetch_assoc($best_result);
 ?>
-<div class="quiz-section">
-    <div class="quiz-content">
+
+<div>
+    <div>
         <h2><?= htmlspecialchars($quiz['title']) ?></h2>
         <p><?= htmlspecialchars($quiz['description']) ?></p>
         
         <?php if ($best): ?>
-            <p style="color:#00ccff; margin:15px 0;">Best Score: <strong><?= $best['score'] ?>/<?= $best['total'] ?></strong></p>
+            <p>
+                Best Score: <strong><?= $best['score'] ?>/<?= $best['total'] ?></strong>
+            </p>
         <?php endif; ?>
         
         <a href="index.php?page=quiz&id=<?= $quiz['id'] ?>" class="btn">START QUIZ</a>
     </div>
 </div>
+
 <?php endwhile; ?>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>

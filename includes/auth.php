@@ -6,9 +6,13 @@ function isLoggedIn() {
     }
 }
 
+function isAdmin() {
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
 function loginUser($email, $password) {
     global $conn;
-    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, username, password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -17,6 +21,7 @@ function loginUser($email, $password) {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
             return true;
         }
     }
@@ -26,7 +31,7 @@ function loginUser($email, $password) {
 function registerUser($username, $email, $password) {
     global $conn;
     $hashed = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')");
     $stmt->bind_param("sss", $username, $email, $hashed);
     return $stmt->execute();
 }
