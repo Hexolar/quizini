@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $quiz_id = (int)$_POST['quiz_id'];
 $user_id = $_SESSION['user_id'];
-$score = 0;
-$total = 0;
+$score   = 0;
+$total   = 0;
 
 $questions = mysqli_query($conn, "SELECT id FROM questions WHERE quiz_id = $quiz_id");
 
@@ -31,11 +31,10 @@ $stmt->bind_param("iiii", $user_id, $quiz_id, $score, $total);
 $stmt->execute();
 ?>
 
-<div>
-    <h1>QUIZ COMPLETE</h1>
-    <h2>Your Score: <strong><?= $score ?>/<?= $total ?></strong></h2>
-    
-    <a href="index.php?page=home">Back to Home</a>
+<div class="result-page">
+    <h1 class="result-heading">QUIZ COMPLETE</h1>
+    <h2 class="result-score">Your Score: <strong><?= $score ?>/<?= $total ?></strong></h2>
+    <a href="index.php?page=home" class="btn btn-primary result-back">Back to Home</a>
 </div>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quizini.answers: ~268 rows (approximately)
+-- Dumping data for table quizini.answers: ~255 rows (approximately)
 INSERT INTO `answers` (`id`, `question_id`, `answer_text`, `is_correct`) VALUES
 	(1, 1, '1998 and 1999', 1),
 	(2, 1, '2000 and 2001', 0),
@@ -410,12 +410,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `role` enum('user','admin') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quizini.users: ~2 rows (approximately)
+-- Dumping data for table quizini.users: ~1 rows (approximately)
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`, `role`) VALUES
 	(1, 'Guy 1', 'Test@testmail.com', '$2y$10$2xb/WEX/rctGBjdmD9.6GeZKN2cKiZaUTjCQgGv794LEJyuRuh8nu', '2026-05-06 13:27:29', 'user'),
 	(2, 'Admin-John', 'Qadmin@email.com', '$2y$10$RQkxOWCsWMDIw1prUp6Ru.LP/WDRYkCMsbWaW8ISKWrEamkiGOtY.', '2026-05-14 16:57:04', 'admin');
@@ -429,9 +430,9 @@ CREATE TABLE IF NOT EXISTS `user_results` (
   `total` int NOT NULL,
   `completed_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table quizini.user_results: ~7 rows (approximately)
+-- Dumping data for table quizini.user_results: ~8 rows (approximately)
 INSERT INTO `user_results` (`id`, `user_id`, `quiz_id`, `score`, `total`, `completed_at`) VALUES
 	(1, 1, 1, 4, 15, '2026-05-06 13:28:56'),
 	(2, 1, 1, 3, 15, '2026-05-08 14:19:04'),

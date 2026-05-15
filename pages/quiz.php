@@ -18,28 +18,29 @@ while ($q = mysqli_fetch_assoc($questions_query)) {
     while ($a = mysqli_fetch_assoc($ans_query)) {
         $answers[] = $a;
     }
-    shuffle($answers);           // Randomize answers
+    shuffle($answers);
     $q['answers'] = $answers;
     $questions[] = $q;
 }
 ?>
 
-<div>
+<!-- Sticky progress bar -->
+<div class="quiz-progress-track">
     <div id="progress"></div>
 </div>
 
-<div>
+<div class="quiz-page">
     <div>
-        <h1><?= htmlspecialchars($quiz['title']) ?></h1>
-        
-        <form action="index.php?page=results" method="POST">
+        <h1 class="quiz-title"><?= htmlspecialchars($quiz['title']) ?></h1>
+
+        <form class="quiz-form" action="index.php?page=results" method="POST">
             <input type="hidden" name="quiz_id" value="<?= $quiz_id ?>">
 
             <?php foreach ($questions as $index => $q): ?>
-            <div>
-                <h3><?= ($index + 1) . ". " . htmlspecialchars($q['question_text']) ?></h3>
+            <div class="quiz-question-block">
+                <h3 class="quiz-question-text"><?= ($index + 1) . ". " . htmlspecialchars($q['question_text']) ?></h3>
                 <?php foreach ($q['answers'] as $ans): ?>
-                    <label>
+                    <label class="quiz-answer-label">
                         <input type="radio" name="q<?= $q['id'] ?>" value="<?= $ans['id'] ?>" required>
                         <?= htmlspecialchars($ans['answer_text']) ?>
                     </label>
@@ -47,9 +48,7 @@ while ($q = mysqli_fetch_assoc($questions_query)) {
             </div>
             <?php endforeach; ?>
 
-            <button type="submit">
-                Finish Quiz
-            </button>
+            <button class="quiz-submit" type="submit">Finish Quiz</button>
         </form>
     </div>
 </div>
@@ -64,6 +63,4 @@ document.querySelectorAll('input[type="radio"]').forEach(input => {
 });
 </script>
 
-<?php 
-require __DIR__ . '/../includes/footer.php';
-?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
